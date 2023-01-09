@@ -1,12 +1,14 @@
 // import logo from "./logo.svg";
-import Weather from "./Weather";
+import WeatherSearch from "./WeatherSearch";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">Hello</header>
-      <Weather />
+      <header className="App-header">
+        Weather App
+        <WeatherSearch />
+      </header>
     </div>
   );
 }
