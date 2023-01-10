@@ -1,18 +1,50 @@
-import React from "react";
-import WeatherIcon from "./WeatherIcon";
+import React, { useState } from "react";
 
 export default function WeatherTemperature(props) {
-  return (
-    <div className="WeatherTemperature clearfix">
-      {/* <img src={props.imagesrc} alt={props.imagealt} className="float-left" /> */}
-      <div className="d-flex float-left">
-        <WeatherIcon code={props.imagesrc} size={52} />
+  const [unit, setUnit] = useState("celsius");
+  // Define Functions //////////////////////////////////
+  function convertToFahrenheit() {
+    return Math.round((props.temp * 9) / 5 + 32);
+  }
+  function showFahrenheit(event) {
+    event.preventDefault();
+    setUnit("fahrenheit");
+  }
+  function showCelsius(event) {
+    event.preventDefault();
+    setUnit("celsius");
+  }
+  /////////////////////////////////////
+  // Conditional Rendering
+  if (unit === "celsius") {
+    return (
+      <div className="WeatherTemperature clearfix">
+        <div className="float-left">
+          <span className="temperature">{props.temp}</span>
+          <span className="units">
+            {" "}
+            °C |{" "}
+            <a href="/" onClick={showFahrenheit}>
+              °F
+            </a>
+          </span>
+        </div>
       </div>
-
-      <div className="float-left">
-        <span className="temperature">{props.temp}</span>
-        <span className="units"> °C </span>
+    );
+  } else {
+    return (
+      <div className="WeatherTemperature clearfix">
+        <div className="float-left">
+          <span className="temperature">{convertToFahrenheit()}</span>
+          <span className="units">
+            {" "}
+            °F |{" "}
+            <a href="/" onClick={showCelsius}>
+              °C
+            </a>
+          </span>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

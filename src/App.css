@@ -31,12 +31,12 @@
 .Overview {
   margin-bottom: 20px;
 }
-.WeatherTemperature img {
+.WeatherInfo img {
   margin-right: 5px;
   height: 84px;
   width: 84px;
 }
-.WeatherTemperature canvas {
+.WeatherInfo canvas {
   margin-right: 15px;
   height: 64px;
   width: 64px;
@@ -53,4 +53,7 @@
   position: relative;
   font-size: 16px;
   top: -34px;
+}
+.WeatherTemperature .units a {
+  text-decoration: none;
 }
