@@ -6,13 +6,13 @@ import FormattedDate from "./FormattedDate";
 import WeatherTemperature from "./WeatherTemperature";
 import Details from "./Details";
 
-export default function WeatherSearch() {
-  const [weatherData, setWeatherData] = useState({ search: false });
-  const [city, setCity] = useState("");
+export default function WeatherSearch(props) {
+  const [weatherData, setWeatherData] = useState({ searching: false });
+  const [city, setCity] = useState(props.defaultCity);
 
   function showTemperature(response) {
     setWeatherData({
-      search: true,
+      searching: true,
       cityName: response.data.city,
       temperature: Math.round(response.data.temperature.current),
       description: response.data.condition.description,
@@ -29,15 +29,18 @@ export default function WeatherSearch() {
     } else {
       event.preventDefault();
 
-      let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
-      let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-      axios.get(apiUrl).then(showTemperature);
+      search();
     }
   }
 
   function changeCity(event) {
     setCity(event.target.value);
+  }
+  function search() {
+    let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(showTemperature);
   }
   let form = (
     <form className="mb-3" onSubmit={handleSubmit}>
@@ -66,7 +69,8 @@ export default function WeatherSearch() {
     </form>
   );
 
-  if (weatherData.search === false) {
+  if (weatherData.searching === false) {
+    search();
     return <div className="WeatherSearch">{form}</div>;
   } else {
     if (weatherData) {
@@ -103,6 +107,7 @@ export default function WeatherSearch() {
       return (
         <div className="WeatherSearch">
           {form}
+
           <ThreeDots color="black" height={50} width={50} />
         </div>
       );
