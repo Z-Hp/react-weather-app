@@ -26,7 +26,7 @@ export default function WeatherSearch(props) {
       wind: Math.round(response.data.wind.speed),
       humidity: response.data.main.humidity,
       description: response.data.weather[0].description,
-      // iconUrl: `assets/${response.data.weather[0].icon}.svg`,
+      // icon: `assets/${response.data.weather[0].icon}.svg`,
       icon: response.data.weather[0].icon,
       date: new Date(response.data.dt * 1000),
     });
