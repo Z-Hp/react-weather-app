@@ -14,13 +14,21 @@ export default function WeatherSearch(props) {
   function showTemperature(response) {
     setWeatherData({
       searching: true,
-      cityName: response.data.city,
-      temperature: Math.round(response.data.temperature.current),
-      description: response.data.condition.description,
-      humidity: response.data.temperature.humidity,
+      // cityName: response.data.city,
+      // temperature: Math.round(response.data.temperature.current),
+      // description: response.data.condition.description,
+      // humidity: response.data.temperature.humidity,
+      // wind: Math.round(response.data.wind.speed),
+      // iconUrl: response.data.condition.icon_url,
+      // date: new Date(response.data.time * 1000),
+      temperature: Math.round(response.data.main.temp),
+      cityName: response.data.name,
       wind: Math.round(response.data.wind.speed),
-      iconUrl: response.data.condition.icon_url,
-      date: new Date(response.data.time * 1000),
+      humidity: response.data.main.humidity,
+      description: response.data.weather[0].description,
+      // iconUrl: `assets/${response.data.weather[0].icon}.svg`,
+      icon: response.data.weather[0].icon,
+      date: new Date(response.data.dt * 1000),
     });
   }
 
@@ -38,8 +46,11 @@ export default function WeatherSearch(props) {
   }
 
   function search() {
-    let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    // let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
+    // let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    const apiKey = "3ca350b553445b933c97a8b98083fd15";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
     axios.get(apiUrl).then(showTemperature);
   }
 

@@ -33,6 +33,11 @@
 }
 .WeatherTemperature img {
   margin-right: 5px;
+  height: 84px;
+  width: 84px;
+}
+.WeatherTemperature canvas {
+  margin-right: 15px;
   height: 64px;
   width: 64px;
 }
