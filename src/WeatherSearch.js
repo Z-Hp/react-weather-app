@@ -5,11 +5,13 @@ import { ThreeDots } from "react-loader-spinner";
 import FormattedDate from "./FormattedDate";
 import WeatherTemperature from "./WeatherTemperature";
 import Details from "./Details";
-
+// ////////////////////////////////////////////////PART 1 : Define Main Function////////////////////////////////////////////////////
 export default function WeatherSearch(props) {
+  // PART A : Define States////////////////////////////////////////////////////
   const [weatherData, setWeatherData] = useState({ searching: false });
   const [city, setCity] = useState(props.defaultCity);
 
+  // PART B : Define Other Functions////////////////////////////////////////////////////
   function showTemperature(response) {
     setWeatherData({
       searching: true,
@@ -28,7 +30,6 @@ export default function WeatherSearch(props) {
       alert("Plase inter a city");
     } else {
       event.preventDefault();
-
       search();
     }
   }
@@ -36,12 +37,14 @@ export default function WeatherSearch(props) {
   function changeCity(event) {
     setCity(event.target.value);
   }
+
   function search() {
     let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
     axios.get(apiUrl).then(showTemperature);
   }
+
+  // Part C : Define Form //////////////////////////
   let form = (
     <form className="mb-3" onSubmit={handleSubmit}>
       <div className="row">
@@ -68,6 +71,8 @@ export default function WeatherSearch(props) {
       </div>
     </form>
   );
+
+  // ////////////////////////////////////////////////////PART 2 : Return //////////////////////////////////////////////////////////
 
   if (weatherData.searching === false) {
     search();
