@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import FormattedDate from "./FormattedDate";
+import WeatherTemperature from "./WeatherTemperature";
+import Details from "./Details";
 
 export default function WeatherSearch() {
   const [search, setSearch] = useState(false);
@@ -82,25 +84,17 @@ export default function WeatherSearch() {
           </div>
           <div className="row">
             <div className="col-6">
-              <div className="WeatherTemperature clearfix">
-                <img
-                  src={weatherData.iconUrl}
-                  alt={weatherData.description}
-                  className="float-left"
-                />
-                <div className="float-left">
-                  <span className="temperature">{weatherData.temperature}</span>
-                  <span className="units"> °C </span>
-                </div>
-              </div>
+              <WeatherTemperature
+                imagesrc={weatherData.iconUrl}
+                imagealt={weatherData.description}
+                temp={weatherData.temperature}
+              />
             </div>
             <div className="col-6">
-              <div className="Details">
-                <ul>
-                  <li>Humidity: {weatherData.humidity}%</li>
-                  <li>Wind: {weatherData.wind}km/h</li>
-                </ul>
-              </div>
+              <Details
+                humidity={weatherData.humidity}
+                wind={weatherData.wind}
+              />
             </div>
           </div>
         </div>
