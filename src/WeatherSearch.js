@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 
-import FormattedDate from "./FormattedDate";
-import WeatherTemperature from "./WeatherTemperature";
-import Details from "./Details";
+import WeatherInfo from "./WeatherInfo";
+
 // ////////////////////////////////////////////////PART 1 : Define Main Function////////////////////////////////////////////////////
 export default function WeatherSearch(props) {
   // PART A : Define States////////////////////////////////////////////////////
@@ -74,48 +73,20 @@ export default function WeatherSearch(props) {
 
   // ////////////////////////////////////////////////////PART 2 : Return //////////////////////////////////////////////////////////
 
-  if (weatherData.searching === false) {
-    search();
-    return <div className="WeatherSearch">{form}</div>;
+  if (weatherData.searching === true) {
+    return (
+      <div className="WeatherSearch">
+        {form}
+        <WeatherInfo data={weatherData} />
+      </div>
+    );
   } else {
-    if (weatherData) {
-      return (
-        <div className="WeatherSearch">
-          {form}
-          <div className="Overview">
-            <h1>{weatherData.cityName}</h1>
-            <ul>
-              <li>
-                <FormattedDate date={weatherData.date} />
-              </li>
-              <li>{weatherData.description}</li>
-            </ul>
-          </div>
-          <div className="row">
-            <div className="col-6">
-              <WeatherTemperature
-                imagesrc={weatherData.iconUrl}
-                imagealt={weatherData.description}
-                temp={weatherData.temperature}
-              />
-            </div>
-            <div className="col-6">
-              <Details
-                humidity={weatherData.humidity}
-                wind={weatherData.wind}
-              />
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="WeatherSearch">
-          {form}
-
-          <ThreeDots color="black" height={50} width={50} />
-        </div>
-      );
-    }
+    search();
+    return (
+      <div className="WeatherSearch">
+        {form}
+        <ThreeDots color="black" height={50} width={50} />
+      </div>
+    );
   }
 }
