@@ -6,13 +6,14 @@ import WeatherTemperature from "./WeatherTemperature";
 import Details from "./Details";
 
 export default function WeatherSearch() {
-  const [search, setSearch] = useState(false);
-  const [weatherData, setWeatherData] = useState({});
+  // const [search, setSearch] = useState(false);
+  const [weatherData, setWeatherData] = useState({ search: false });
   const [city, setCity] = useState("");
 
   function showTemperature(response) {
-    setSearch(true);
+    // setSearch(true);
     setWeatherData({
+      search: true,
       cityName: response.data.city,
       temperature: Math.round(response.data.temperature.current),
       description: response.data.condition.description,
@@ -28,7 +29,7 @@ export default function WeatherSearch() {
       alert("Plase inter a city");
     } else {
       event.preventDefault();
-      setSearch(true);
+      // setSearch(true);
       let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
       let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
@@ -66,7 +67,7 @@ export default function WeatherSearch() {
     </form>
   );
 
-  if (search === false) {
+  if (weatherData.search === false) {
     return <div className="WeatherSearch">{form}</div>;
   } else {
     if (weatherData.temperature) {
