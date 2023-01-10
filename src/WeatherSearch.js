@@ -6,26 +6,17 @@ export default function WeatherSearch() {
   const [search, setSearch] = useState(false);
   const [weatherData, setWeatherData] = useState({});
   const [city, setCity] = useState("");
-  // const [temperature, setTemperature] = useState(null);
-  // const [description, setDescription] = useState(null);
-  // const [humidity, setHumidity] = useState(null);
-  // const [wind, setWind] = useState(null);
-  // const [icon, setIcon] = useState(null);
 
   function showTemperature(response) {
     setSearch(true);
     setWeatherData({
+      cityName: response.data.city,
       temperature: Math.round(response.data.temperature.current),
       description: response.data.condition.description,
       humidity: response.data.temperature.humidity,
       wind: Math.round(response.data.wind.speed),
       iconUrl: response.data.condition.icon_url,
     });
-    // setTemperature(Math.round(response.data.temperature.current));
-    // setDescription(response.data.condition.description);
-    // setHumidity(response.data.temperature.humidity);
-    // setWind(Math.round(response.data.wind.speed));
-    // setIcon(response.data.condition.icon_url);
   }
 
   function handleSubmit(event) {
@@ -64,7 +55,7 @@ export default function WeatherSearch() {
             className="btn btn-primary shadow-sm w-100"
           />
         </div>
-        <div class="col-3">
+        <div className="col-3">
           <button className="btn btn-success w-100">Current</button>
         </div>
       </div>
@@ -79,14 +70,14 @@ export default function WeatherSearch() {
         <div className="WeatherSearch">
           {form}
           <div className="Overview">
-            <h1>{city}</h1>
+            <h1>{weatherData.cityName}</h1>
             <ul>
               <li>Thursday 20:57</li>
               <li>{weatherData.description}</li>
             </ul>
           </div>
-          <div class="row">
-            <div class="col-6">
+          <div className="row">
+            <div className="col-6">
               <div className="WeatherTemperature clearfix">
                 <img
                   src={weatherData.iconUrl}
@@ -99,7 +90,7 @@ export default function WeatherSearch() {
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div className="col-6">
               <div className="Details">
                 <ul>
                   <li>Humidity: {weatherData.humidity}%</li>
