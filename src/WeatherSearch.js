@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
+import FormattedDate from "./FormattedDate";
 
 export default function WeatherSearch() {
   const [search, setSearch] = useState(false);
@@ -16,6 +17,7 @@ export default function WeatherSearch() {
       humidity: response.data.temperature.humidity,
       wind: Math.round(response.data.wind.speed),
       iconUrl: response.data.condition.icon_url,
+      date: new Date(response.data.time * 1000),
     });
   }
 
@@ -72,7 +74,9 @@ export default function WeatherSearch() {
           <div className="Overview">
             <h1>{weatherData.cityName}</h1>
             <ul>
-              <li>Thursday 20:57</li>
+              <li>
+                <FormattedDate date={weatherData.date} />
+              </li>
               <li>{weatherData.description}</li>
             </ul>
           </div>
