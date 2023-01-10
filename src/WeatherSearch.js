@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
+
 import FormattedDate from "./FormattedDate";
 import WeatherTemperature from "./WeatherTemperature";
 import Details from "./Details";
 
 export default function WeatherSearch() {
-  // const [search, setSearch] = useState(false);
   const [weatherData, setWeatherData] = useState({ search: false });
   const [city, setCity] = useState("");
 
   function showTemperature(response) {
-    // setSearch(true);
     setWeatherData({
       search: true,
       cityName: response.data.city,
@@ -29,7 +28,7 @@ export default function WeatherSearch() {
       alert("Plase inter a city");
     } else {
       event.preventDefault();
-      // setSearch(true);
+
       let apiKey = "2fcafa1aefod01457ce321at38ddee0b";
       let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
@@ -70,7 +69,7 @@ export default function WeatherSearch() {
   if (weatherData.search === false) {
     return <div className="WeatherSearch">{form}</div>;
   } else {
-    if (weatherData.temperature) {
+    if (weatherData) {
       return (
         <div className="WeatherSearch">
           {form}
