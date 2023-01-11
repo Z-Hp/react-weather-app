@@ -24,6 +24,7 @@ export default function WeatherSearch(props) {
       // date: new Date(response.data.time * 1000),
       temperature: Math.round(response.data.main.temp),
       cityName: response.data.name,
+      coord: response.data.coord,
       wind: Math.round(response.data.wind.speed),
       humidity: response.data.main.humidity,
       description: response.data.weather[0].description,
@@ -90,7 +91,7 @@ export default function WeatherSearch(props) {
       <div className="WeatherSearch">
         {form}
         <WeatherInfo data={weatherData} />
-        <WeatherForecast />
+        <WeatherForecast coord={weatherData.coord} />
       </div>
     );
   } else {
