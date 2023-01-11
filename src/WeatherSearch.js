@@ -3,6 +3,7 @@ import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 
 import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
 
 // ////////////////////////////////////////////////PART 1 : Define Main Function////////////////////////////////////////////////////
 export default function WeatherSearch(props) {
@@ -89,6 +90,7 @@ export default function WeatherSearch(props) {
       <div className="WeatherSearch">
         {form}
         <WeatherInfo data={weatherData} />
+        <WeatherForecast />
       </div>
     );
   } else {
