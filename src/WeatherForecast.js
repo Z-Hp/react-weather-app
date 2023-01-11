@@ -1,74 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
-import WeatherIcon from "./WeatherIcon";
+import WeatherForecastDay from "./WeatherForecastDay";
 import "./WeatherForecast.css";
 
 export default function WeatherForecast(props) {
+  const [searching, setSearching] = useState(false);
+  const [forecastData, setForecastData] = useState(null);
+
   function handleResponse(response) {
-    console.log(response.data);
+    setSearching(true);
+    setForecastData(response.data.daily);
   }
-  let longitude = props.coord.lon;
-  let latitude = props.coord.lat;
-  let apiKey = "3ca350b553445b933c97a8b98083fd15";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  function searchForForecast() {
+    let longitude = props.coord.lon;
+    let latitude = props.coord.lat;
+    let apiKey = "3ca350b553445b933c97a8b98083fd15";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(handleResponse);
+    axios.get(apiUrl).then(handleResponse);
+  }
 
-  return (
-    <div className="WeatherForecast">
-      <div className="row">
-        <div className="col">
-          <div className="WeatherForecast-day">Thu</div>
-          <div className="WeatherForecast-icon">
-            <WeatherIcon code="13d" size={46} />
-          </div>
-          <div className="WeatherForecast-temp">
-            <span className="WeatherForecast-temp-max">19°</span>
-            <span className="WeatherForecast-temp-min">10°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Thu</div>
-          <div className="WeatherForecast-icon">
-            <WeatherIcon code="13d" size={46} />
-          </div>
-          <div className="WeatherForecast-temp">
-            <span className="WeatherForecast-temp-max">19°</span>
-            <span className="WeatherForecast-temp-min">10°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Thu</div>
-          <div className="WeatherForecast-icon">
-            <WeatherIcon code="13d" size={46} />
-          </div>
-          <div className="WeatherForecast-temp">
-            <span className="WeatherForecast-temp-max">19°</span>
-            <span className="WeatherForecast-temp-min">10°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Thu</div>
-          <div className="WeatherForecast-icon">
-            <WeatherIcon code="13d" size={46} />
-          </div>
-          <div className="WeatherForecast-temp">
-            <span className="WeatherForecast-temp-max">19°</span>
-            <span className="WeatherForecast-temp-min">10°</span>
-          </div>
-        </div>
-        <div className="col">
-          <div className="WeatherForecast-day">Thu</div>
-          <div className="WeatherForecast-icon">
-            <WeatherIcon code="13d" size={46} />
-          </div>
-          <div className="WeatherForecast-temp">
-            <span className="WeatherForecast-temp-max">19°</span>
-            <span className="WeatherForecast-temp-min">10°</span>
+  if (searching === true) {
+    return (
+      <div className="WeatherForecast">
+        <div className="row">
+          <div className="col">
+            <WeatherForecastDay data={forecastData[0]} />
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    searchForForecast();
+    return <ThreeDots color="black" height={50} width={50} />;
+  }
 }
