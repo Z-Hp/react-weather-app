@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 
@@ -8,6 +8,10 @@ import "./WeatherForecast.css";
 export default function WeatherForecast(props) {
   const [searching, setSearching] = useState(false);
   const [forecastData, setForecastData] = useState(null);
+
+  useEffect(() => {
+    setSearching(false);
+  }, [props.coord]);
 
   function handleResponse(response) {
     setSearching(true);
